@@ -39,8 +39,8 @@ for episodeNum in range(numEpisodes):
 
 print "Action Value functions: "
 for S in range(181):
-	for A in range(2):
-		print "State: " + str(S) + " Action: " + str(A) + " : " + str(Q[S][A])
+	print str(blackjack.visualDecode(S)) + " Stay: " + str(Q[S][0])
+	print str(blackjack.visualDecode(S)) + " Hit: " + str(Q[S][1])
 
 
 
