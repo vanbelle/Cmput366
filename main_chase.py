@@ -10,10 +10,6 @@ numEpisodes = 2000
 S = 0
 
 
-#== Functions
-
-
-
 #== Main
 for episodeNum in range(numEpisodes):
 	print "Starting Epsisode " + str(episodeNum)
