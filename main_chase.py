@@ -5,7 +5,7 @@ from random import randint
 Q = [[0 for x in range(2)]for x in range(181)]
 alpha = 0.5
 gamma = 1
-numEpisodes = 2000
+numEpisodes = 1000000
 
 S = 0
 
@@ -30,8 +30,8 @@ for episodeNum in range(numEpisodes):
 		S = Sprime
 		
 	
-	print "[*] Terminal State Reached"
-	print ""
+	#print "[*] Terminal State Reached"
+	#print ""
 
 print "Action Value functions: "
 for S in range(181):
