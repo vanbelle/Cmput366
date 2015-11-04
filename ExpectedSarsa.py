@@ -6,26 +6,49 @@ from random import randint
 
 #== Globals
 Q = [[0 for x in range(2)]for x in range(181)]
-numEpisodes = 11000000
+numEpisodes = 10000000
+dropEpsilonEpisode = 1000000 
 alpha = 0.001
 gamma = 1
 epsilon = 0.001
-
-S = 0
 returnSum = 0
-
-def avg(Q):
-	sum = 0
-	for i in range(len(Q)):
-		for j in range(len(Q[i])):
-			sum += Q[i][j]
-	return sum / (len(Q) * 2)
-
 
 #initialize Q to small random number
 for i in range(len(Q)):
 	for j in range(len(Q[i])):
 		Q[i][j] = random.random() * 0.001
+
+
+# Prints out the action values for every state-action pair
+def printActionValues(Q):
+	print("Action Values:")
+	for S in range(181):
+		print str(blackjack.visualDecode(S)) + " Stay: " + str(Q[S][0])
+		print str(blackjack.visualDecode(S)) + " Hit: " + str(Q[S][1])
+
+# Prints out the learned policy
+def printPolicy(Q):
+	print "policy: "
+	for S in range(181):
+		if Q[S][0] >= Q[S][1]:
+			print str(blackjack.visualDecode(S)) + " Stay"
+		else:
+			print str(blackjack.visualDecode(S)) + " Hit"
+
+#Used as an argument to blackjack.printpolicy()
+def showPolicy(S):
+	if Q[S][0] >= Q[S][1]:
+		return 0
+	else:
+		return 1
+
+def printSettings():
+	print "Settings:"
+	print "Episodes: " + str(numEpisodes)
+	print "Drop Epsilon: " + str(dropEpsilonEpisode)
+	print "Epsilon: " + str(epsilon)
+	print "Alpha: " + str(alpha)
+
 
 #== Main
 for episodeNum in range(numEpisodes):
@@ -34,7 +57,6 @@ for episodeNum in range(numEpisodes):
 
 	#while S is not in terminal state
 	while S != -1:
-
 
 		#Choose action here based on epsilon
 		decider = random.random()
@@ -62,43 +84,16 @@ for episodeNum in range(numEpisodes):
 		
 		S = Sprime
 
-	if episodeNum == 1000000:
-		print "==============================================="
+	if episodeNum == dropEpsilonEpisode:
+		print "=============================END GREEDY PHASE============================="
 		epsilon = 0
 
 	if episodeNum % 10000 == 0:
-		#print "Episode: " + str(episodeNum) + " Return: " + str (G)
-		print "Current Avg: " + str(returnSum / (episodeNum+1)) + "Ep: " + str(episodeNum)
+		print "Current Avg: " + str(returnSum / (episodeNum+1)) + " Ep: " + str(episodeNum)
 	returnSum = returnSum + G
 
-
-
-print "Avg Return:" + str(returnSum / numEpisodes)
-	#
-		#print "Avg Return: " + str(returnSum/(episodeNum+1))
-
-	
+print "Avg Return:" + str(returnSum / numEpisodes)	
 	
 
-def printActionValues(Q):
-	print("Action Values:")
-	for S in range(181):
-		print str(blackjack.visualDecode(S)) + " Stay: " + str(Q[S][0])
-		print str(blackjack.visualDecode(S)) + " Hit: " + str(Q[S][1])
-
-
-def printPolicy(Q):
-	print "policy: "
-	for S in range(181):
-		if Q[S][0] >= Q[S][1]:
-			print str(blackjack.visualDecode(S)) + " Stay"
-		else:
-			print str(blackjack.visualDecode(S)) + " Hit"
-
-def showPolicy(S):
-	if Q[S][0] >= Q[S][1]:
-		return 0
-	else:
-		return 1
-
+printSettings()
 blackjack.printPolicy(showPolicy)
