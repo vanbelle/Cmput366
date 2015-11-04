@@ -95,5 +95,10 @@ def printPolicy(Q):
 		else:
 			print str(blackjack.visualDecode(S)) + " Hit"
 
+def showPolicy(S):
+	if Q[S][0] >= Q[S][1]:
+		return 0
+	else:
+		return 1
 
-#printPolicy(Q)
+blackjack.printPolicy(showPolicy)
