@@ -12,6 +12,13 @@ Drop Epsilon: 1000000
 Epsilon: 1
 Alpha: 0.001
 
+Avg Return:-0.0349705
+Settings:
+Episodes: 110000000
+Drop Epsilon: 2500000
+Epsilon: 1
+Alpha: 0.001
+
 Avg Return:-0.053703
 Settings:
 Episodes: 1000000
@@ -66,4 +73,53 @@ Settings:
 Episodes: 11000000
 Drop Epsilon: 2500000
 Epsilon: 0.01
+Alpha: 0.05
+
+Avg Return:-0.0323196363636
+Settings:
+Episodes: 11000000
+Drop Epsilon: 2500000
+Epsilon: 0.01
+Alpha: 0.05
+
+Avg Return:-0.0329400909091
+Settings:
+Episodes: 11000000
+Drop Epsilon: 1000000
+Epsilon: 0.01
+Alpha: 0.05
+
+Avg Return:-0.0337799090909
+Settings:
+Episodes: 11000000
+Drop Epsilon: 2500000
+Epsilon: 0.01
+Alpha: 0.05
+
+Avg Return:-0.0337746818182
+Settings:
+Episodes: 110000000
+Drop Epsilon: 2500000
+Epsilon: 0.01
+Alpha: 0.05
+
+Avg Return:-0.0355968181818
+Settings:
+Episodes: 11000000
+Drop Epsilon: 2500000
+Epsilon: 0.01
+Alpha: 0.075
+
+Avg Return:-0.0387054545455
+Settings:
+Episodes: 1100000
+Drop Epsilon: 2500000
+Epsilon: 0.005
+Alpha: 0.05
+
+Avg Return:-0.0333807272727
+Settings:
+Episodes: 11000000
+Drop Epsilon: 3000000
+Epsilon: 0.005
 Alpha: 0.05

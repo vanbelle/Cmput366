@@ -6,11 +6,13 @@ from random import randint
 
 #== Globals
 Q = [[0 for x in range(2)]for x in range(181)]
-numEpisodes = 110000000
-dropEpsilonEpisode = 2500000
-alpha = 0.05
-gamma = 1
+
+numEpisodes = 1000000
+dropEpsilonEpisode = 999999999999
 epsilon = 0.01
+alpha = 0.05
+
+gamma = 1
 returnSum = 0
 
 originalEpsilon = epsilon
