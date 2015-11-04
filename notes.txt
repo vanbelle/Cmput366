@@ -1,0 +1,21 @@
+
+
+okay so to start all of Q[1-180][1-2] = 0
+
+We're in a state, S. 
+We take action A randomly and get R, and S'
+
+Q[S][A] = itself + alpha[ R + gammma* the val of each possible next state multiplied by the likely hood of taking the action to get to that state under the current policy   ]
+
+
+
+
+results for 11 million iterations, with Epsilon = 0.001 for the first million, and Epsilon = 0 after
+alpha : max avg
+0.001 : -0.0357
+0.01 : -0.0350
+0.05 : -0.0337
+0.1 : -0.0367
+
+
+If waiting until 2.5 million iterations to drop epsilon, alpha of 0.05 produces a better result
