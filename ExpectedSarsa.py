@@ -6,12 +6,14 @@ from random import randint
 
 #== Globals
 Q = [[0 for x in range(2)]for x in range(181)]
-numEpisodes = 10000000
-dropEpsilonEpisode = 1000000 
+numEpisodes = 11000000
+dropEpsilonEpisode = 2500000
 alpha = 0.001
 gamma = 1
-epsilon = 0.001
+epsilon = 0.01
 returnSum = 0
+
+originalEpsilon = epsilon
 
 #initialize Q to small random number
 for i in range(len(Q)):
@@ -46,7 +48,7 @@ def printSettings():
 	print "Settings:"
 	print "Episodes: " + str(numEpisodes)
 	print "Drop Epsilon: " + str(dropEpsilonEpisode)
-	print "Epsilon: " + str(epsilon)
+	print "Epsilon: " + str(originalEpsilon)
 	print "Alpha: " + str(alpha)
 
 
@@ -92,8 +94,10 @@ for episodeNum in range(numEpisodes):
 		print "Current Avg: " + str(returnSum / (episodeNum+1)) + " Ep: " + str(episodeNum)
 	returnSum = returnSum + G
 
+blackjack.printPolicy(showPolicy)
+
+print ""
 print "Avg Return:" + str(returnSum / numEpisodes)	
 	
-
 printSettings()
-blackjack.printPolicy(showPolicy)
+
