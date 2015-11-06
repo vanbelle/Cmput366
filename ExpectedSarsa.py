@@ -7,8 +7,9 @@ from random import randint
 #== Globals
 Q = [[0 for x in range(2)]for x in range(181)]
 
-numEpisodes = 1000000
-dropEpsilonEpisode = 999999999999
+numEpisodes = 110000000
+dropEpsilonEpisode = 1000000
+dropAlpha = 2500000
 epsilon = 0.01
 alpha = 0.05
 
@@ -16,6 +17,7 @@ gamma = 1
 returnSum = 0
 
 originalEpsilon = epsilon
+originalAlpha = alpha
 
 #initialize Q to small random number
 for i in range(len(Q)):
@@ -51,7 +53,7 @@ def printSettings():
 	print "Episodes: " + str(numEpisodes)
 	print "Drop Epsilon: " + str(dropEpsilonEpisode)
 	print "Epsilon: " + str(originalEpsilon)
-	print "Alpha: " + str(alpha)
+	print "Alpha: " + str(originalAlpha)
 
 
 #== Main
@@ -76,6 +78,9 @@ for episodeNum in range(numEpisodes):
 		R,Sprime = blackjack.sample(S,A)
 		G = G + R
 
+		if episodeNum > dropAlpha:
+			print R
+
 		#print str(Sprime)+":"+str(A)
 
 		if Sprime == -1:
@@ -89,17 +94,21 @@ for episodeNum in range(numEpisodes):
 		S = Sprime
 
 	if episodeNum == dropEpsilonEpisode:
-		print "=============================END GREEDY PHASE============================="
+		#print "=============================END EXPLORING PHASE============================="
 		epsilon = 0
 
-	if episodeNum % 10000 == 0:
-		print "Current Avg: " + str(returnSum / (episodeNum+1)) + " Ep: " + str(episodeNum)
+	if episodeNum == dropAlpha:
+		#print "=============================END LEARNING PHASE============================="
+		alpha = 0
+
+	#if episodeNum % 10000 == 0:
+		#print "Current Avg: " + str(returnSum / (episodeNum+1)) + " Ep: " + str(episodeNum)
 	returnSum = returnSum + G
 
-blackjack.printPolicy(showPolicy)
+#blackjack.printPolicy(showPolicy)
 
-print ""
-print "Avg Return:" + str(returnSum / numEpisodes)	
+#print ""
+#print "Avg Return:" + str(returnSum / numEpisodes)	
 	
-printSettings()
+#printSettings()
 
