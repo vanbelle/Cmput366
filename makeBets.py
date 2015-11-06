@@ -32,10 +32,9 @@ class Run(object):
 		self.maxCash = 0
 		self.runLength = 0
 
-run = Run()
-
 runs = []
 
+run = Run()
 for line in sys.stdin:
 	lineNumber += 1
 	outcome = int(line.strip())

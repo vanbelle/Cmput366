@@ -82,14 +82,10 @@ for episodeNum in range(numEpisodes):
 		if episodeNum > dropAlpha:
 			print R
 
-		#print str(Sprime)+":"+str(A)
 
 		if Sprime == -1:
 			Q[S][A] = Q[S][A] + alpha*(R - Q[S][A])	
 		else:
-			#if decider <= epsilon:
-			#	Q[S][A] = Q[S][A] + alpha*(R + gamma*(0.5 * Q[Sprime][0] + 0.5 * Q[Sprime][1]) - Q[S][A])
-			#else:
 			Q[S][A] = Q[S][A] + alpha*(R + gamma*(max(Q[Sprime][0],Q[Sprime][1])) - Q[S][A])
 		
 		S = Sprime
