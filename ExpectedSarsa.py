@@ -8,6 +8,7 @@ from random import randint
 Q = [[0 for x in range(2)]for x in range(181)]
 
 numEpisodes = 110000000
+
 dropEpsilonEpisode = 1000000
 dropAlpha = 2500000
 epsilon = 0.01
@@ -103,6 +104,7 @@ for episodeNum in range(numEpisodes):
 
 	#if episodeNum % 10000 == 0:
 		#print "Current Avg: " + str(returnSum / (episodeNum+1)) + " Ep: " + str(episodeNum)
+
 	returnSum = returnSum + G
 
 #blackjack.printPolicy(showPolicy)
