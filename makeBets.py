@@ -11,6 +11,10 @@ currentBet = 500
 maxBet = 1000
 minBet = 100
 
+leaveValue = 5000
+
+bank = 0
+
 maxCash = 0
 
 wentBroke = 0
@@ -39,9 +43,13 @@ for line in sys.stdin:
 	lineNumber += 1
 	outcome = int(line.strip())
 	currentCash += (currentBet*outcome)
-	maxCash = max(currentCash, maxCash)
+	#maxCash = max(currentCash, maxCash)
 	run.maxCash = max(currentCash, run.maxCash)
 	run.runLength += 1
+
+	if currentCash > 5000:
+		bank += 2500
+		currentCash -= 2500
 
 	if outcome > 0:
 		currentBet -= 100
@@ -55,6 +63,7 @@ for line in sys.stdin:
 		currentCash = 2500
 		runs.append(run)
 		run = Run()
+		bank -= 2500
 
 
 #	if lineNumber % 1 == 0:
@@ -81,13 +90,14 @@ for line in sys.stdin:
 		print ""
 
 		for i in runs:
-			if i.maxCash == 2500:
+			if i.maxCash < leaveValue:
 				numberLostMoney += 1
-			elif i.maxCash >= 5000:
+			elif i.maxCash >= leaveValue:
 				numberDoubledMoney += 1
 
 		print "Lost Money: " + str(numberLostMoney) + " times"
 		print "Doubled Money: " + str(numberDoubledMoney) + " times"
+		print "Bank: $" + str(bank)
 
 
 #	if lineNumber % 1000 == 0:
