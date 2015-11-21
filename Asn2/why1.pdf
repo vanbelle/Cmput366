@@ -1,0 +1,15 @@
+6 Why Questions
+--------------------------------
+
+1. Each tiling corresponds to an array with 121 values, so instead of having 8 different arrays numbered 0 to 120, we stick the 8 arrays back to back and array 2 starts at index 121 and ends at indes 241, and the third array will start at index 242 and continue for the next 120 values, and so on so forth until value 967.
+ 
+2. Every value pair with x < 0.6 will end up in column 0, and every y < 0.6 will end up in row 0, this is why for x = 0.1 and y = 0.1 the first tiling will place these values in tile 0. For each tiling, to account for the offsets, i*0.6/8 is added to the x and y values (where i is the tiling index) to represent the accumulated offsets. 6*(0.6/8) = 0.45 (6 is the tiling index for the seventh tiling since i starts at 0) and 0.1 + 0.45 = 0.55 < 0.6 therefore for every tiling up to that point x,y < 0.6 and therefore goes into tile 0 for its respective tiling which is caluculated by 121*i where i = 0,1,2,3,4,5,6 and gives the values 0,121,242,363,484,605,726.
+ 
+3. at the 8th tiling x,y = 0.1 + 7*(0.6/8) = 0.625 > 0.6. Since 0.6 < 0.625 < 1.2 this value falls into the row 1, column 1 => tile 12 (also known as the 13th tile since tile 0 is the first.)
+
+4. Since this is for the 8th tiling, the tiles span the distance [847, 967], since tile 0 in the 8th tiling corresponds to tile 847, tile 12 in the 8th tiling corresponds to tile 859.
+
+5. The 8th tiling starts at 847 (121*7) and there are 120 other tiles in that matrix, 847+120=967.
+
+6. the sets if indices for (4.0, 2.0) and (4.0,2.1) are very similar because the numbers given as input are very similar. The only time their answers vary is when they are sitting right on the edge of a tile and the extra 0.1 value pushes it across to the tile next to it. 
+
