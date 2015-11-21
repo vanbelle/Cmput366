@@ -7,6 +7,14 @@ from Tilecoder import numTilings, tilecode
     
 def f(x,y):
     # write your linear function approximator here (5 lines or so)
+    total = 0
+
+    vectorLength = 968 # corresponds to n in the algorithm
+    #weight corresponds to theta in algo
+    #featureVector corresponds to phi in algo
+    for i in range(vectorLength):
+        total += weight[i] + featureVector(x,y)[i]
+    return total
    
 def learn(x,y,target):
     # write your gradient descent learning algorithm here (3 lines or so)
