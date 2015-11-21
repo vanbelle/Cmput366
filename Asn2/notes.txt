@@ -1,1 +1,7 @@
 http://www.cs.utexas.edu/~ai-lab/pubs/whitesontr07.pdf
+
+
+why doe the tiling go up to 968?
+because each tiling is 11*11 (121), and there are 8 tilings
+8 * 121 = 968.
+The actual value used will be 967 because we start at 0
