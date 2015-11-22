@@ -1,3 +1,26 @@
+## HOW IT WORKS ############################################################################
+#   takes 2 numbers, x and y, and translates them 
+#   into their corresponding tile number in each tiling. 
+#   Because there are 8 tilings, it returns 8 values (the 
+#   tile corresponding to x,y in each tiling)
+#
+#   to determine these tiles:
+#   for each tile coding, the the tile is 
+#   (x and y + the current offset) / 0.6 and then rounded down 
+#   to whole numbers
+#
+#   what this does, is puts very similar input together on some 
+#   tiles but not all tiles. for example see samples 2, and 4 in this output
+#
+#   Tile indices for input ( 0.1 , 0.1 ) are :  [0, 121, 242, 363, 484, 605, 726, 859]
+#   Tile indices for input ( 4.0 , 2.0 ) are :  [69, 190, 311, 443, 564, 685, 807, 928]
+#   Tile indices for input ( 5.99 , 5.99 ) are :  [108, 241, 362, 483, 604, 725, 846, 967]
+#   Tile indices for input ( 4.0 , 2.1 ) are :  [69, 190, 311, 443, 565, 686, 807, 928]
+#
+#   Modified by Chase McCarty and Sarah Van Belleghem in 2015
+############################################################################################
+
+
 numTilings = 8
 offset = 0.6/numTilings
 

@@ -1,6 +1,9 @@
 2 Why Questions
 --------------------------------
-1. The before value of the 4th point is non-zero because that value has already been seen once before. The X value in sample 2 and sample 4 are identical; therefore some learning about that state has already happened by the time it is seen for the second time. 
+1. The before value of the 4th point is non-zero because that value has already been seen once before. The X value in sample 2 and sample 4 are identical; therefore some learning about that state has already happened by the time it is seen for the second time.
+
+Also mention that they share a tile in 4/8 of the tilings
+
 
 
 2. The MSE comes down smoothly from 0.25 to 0.01, and then stays there. It does not further decrease because the state spaces are being generalized. This means that the machine can't learn the best thing to do in EVERY state, but only the best thing to do in most states. Because of this, it will always be wrong some of the time.
