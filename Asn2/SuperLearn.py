@@ -4,7 +4,7 @@ from Tilecoder import numTilings, tilecode
 # initialize weights appropriately here
 theta = [0] * 968
 # initialize step size parameter appropriately here
-alpha = 0.1
+alpha = 0.1/numTilings
 # initialize your global list of tile indices here
 phi = [0] * 968
     
