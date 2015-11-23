@@ -1,9 +1,6 @@
 2 Why Questions
 --------------------------------
-1. The before value of the 4th point is non-zero because that value has already been seen once before. The X value in sample 2 and sample 4 are identical; therefore some learning about that state has already happened by the time it is seen for the second time.
-
-Also mention that they share a tile in 4/8 of the tilings
-
+1. The before value of the 4th point is non-zero because it is VERY similar to the 2nd point. So similar, in fact, that it shares 4/8 tiles with the 2nd point. Because of this, half of the 8 theta values corresponding with the tiles have non-zero values from learning the 2nd point, and this will produce a non-zero estimate.
 
 
 2. The MSE comes down smoothly from 0.25 to 0.01, and then stays there. It does not further decrease because the state spaces are being generalized. This means that the machine can't learn the best thing to do in EVERY state, but only the best thing to do in most states. Because of this, it will always be wrong some of the time.
@@ -13,6 +10,7 @@ Also mention that they share a tile in 4/8 of the tilings
 Paragraph:
 
 The final learned function after 10000 iterations has 3 main peaks, and 3 main troughs. 
-Our learned function after only 20 iterations also has 3 peaks and 3 troughs, though they aren't nearly as wide and tall, they will become so after more iterations. The heights in the first (the shorter) learning are abour 2/3's what they will be in the second learning. The widths are about half what they will become in the second learning.
+Our learned function after only 20 iterations, is mostly flat. This is because most of the state spaces have not been visited at all yet. The few bumps and dips represent states that have been visited within the 20 iterations. On the left we see a tall peak. This peak isn't as tall as it will become, since the x,y correspoding to it's highest point has not yet been visited. This is the same for all peaks and troughs in the 20 iteration sample. Most aren't as tall or as deep as they should be, but they're all in roughly the right place. The estimate of a particular state space depends quite heavily on the estimates of its immediate neighbors. As seen in the graph, (x,y) pairs who's immediate neighbors have also been visited (are non-zero) correspond very closely to the same value on the 10,000 iteration graph.
 
-If the tiling was input space was changed to 11x21, with the x dimension being divided twice as finely as the y dimension, the function would produce less error in the x dimension that in the y dimension. Because of this, the plot would look a little lopsided, being wider in the X dimension than the y dimension. 
+
+If the tiling was input space was changed to 11x21, with the x dimension being divided twice as finely as the y dimension, the width of the peaks and troughs in the y dimension would be learned much faster. This occurs because there are so many more state spaces in the x dimension to visit, so an even higher percentage of them will be unvisisted after 20 iterations. There is an upside to this alternate tiling however. Though the x's will be less accurate in the 20 iteration graph, they will have twice the granularity on the 10,000 iteration graph.
