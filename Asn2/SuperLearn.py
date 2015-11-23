@@ -11,7 +11,7 @@ from Tilecoder import numTilings, tilecode
 # initialize weights appropriately here
 theta = [0] * 968
 # initialize step size parameter appropriately here
-alpha = 0.1/numTilings
+alpha = (0.1/numTilings)
 # initialize your global list of tile indices here
 phi = [0] * 968
     
@@ -35,14 +35,15 @@ def f(x,y):
 # true value it should be
 def learn(x,y,target):
     # write your gradient descent learning algorithm here (3 lines or so)
+    currentFXY = f(x,y)
     featureVectorArray = tilecode(x,y,[-1]*numTilings)
     for i in range(len(theta)):
         if i in featureVectorArray:
-            theta[i] = theta[i] + alpha*(target - f(x,y))
+            theta[i] = theta[i] + alpha*(target - currentFXY)
 
 
 def test1():
-   for x,y,target in \
+    for x,y,target in \
          [ (0.1, 0.1, 3.0), \
            (4.0, 2.0, -1.0), \
            (5.99, 5.99, 2.0), \
@@ -96,5 +97,5 @@ def test2():
         MSE(10000)
     writeF('f10000')
 
-test1()
+test2()
 
