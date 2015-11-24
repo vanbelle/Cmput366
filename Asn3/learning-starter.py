@@ -5,7 +5,7 @@ from pylab import *  #includes numpy
 
 numRuns = 1
 numEpisodes = 200
-alpha = 005/numTilings
+alpha = 0.5/numTilings #was originally 005/numTilings
 gamma = 1
 lmbda = 0.9
 Epi = Emu = epsilon = 0
@@ -14,13 +14,13 @@ F = [-1]*numTilings
 
 runSum = 0.0
 for run in xrange(numRuns):
-    theta = -0.01*rand(n)
+    theta = -0.01*rand(n) 
     returnSum = 0.0
     for episodeNum in xrange(numEpisodes):
         G = 0
-        ...
-        your code goes here (20-30 lines, depending on modularity)
-        ...
+        
+        #your code goes here (20-30 lines, depending on modularity)
+        
         print "Episode: ", episodeNum, "Steps:", step, "Return: ", G
         returnSum = returnSum + G
     print "Average return:", returnSum/numEpisodes
