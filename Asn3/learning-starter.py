@@ -16,11 +16,12 @@ F = [-1]*numTilings
 runSum = 0.0
 for run in xrange(numRuns):
     theta = -0.01*rand(n) 
-    eligibilityTraceVector = [0]*n
+    eTrace = [0]*n
 
     returnSum = 0.0
     for episodeNum in xrange(numEpisodes):
         G = 0
+        delta = 0
         #your code goes here (20-30 lines, depending on modularity)
         state = mountaincar.init()
 
@@ -37,7 +38,9 @@ for run in xrange(numRuns):
                 reward, newState = mountaincar.sample(state, action)
             G += reward
 
-            learn() #Not sure what arguments learn will need
+            delta = reward + updateDelta(tiles, theta, action, state)
+            eTrace = updateETrace(eTrace, tiles, action)
+            theta = updateTheta(theta, delta, eTrace)
 
             state = newState
 
@@ -48,7 +51,30 @@ for run in xrange(numRuns):
     runSum += returnSum
 print "Overall performance: Average sum of return per run:", runSum/numRuns
 
+def updateDelta(tiles,theta, action, state):
+    nextTiles = tilecode(state[0], state[1],[-1]*numTilings)
+    if i in nextTiles:
+        delta += (1/3)*theta[i]
+        delta += (1/3)*theta[i + 4*81]
+        delta += (1/3)*theta[i + 8*81]
+    if i in tiles:
+        delta -= theta[i + action*4*81]
+    return delta
 
+def updateTheta(theta,delta, eTrace):
+    oldTheta = theta
+    for i in range(len(theta)):
+        theta[i] = oldTheta[i] + (alpha*delta*eTrace[i])
+    return theta
+
+def updateETrace(eTrace, tiles, action):
+    oldETrace = eTrace
+    for i in range(len(eTrace)):
+        if (i + action*4*81) in tiles:
+            eTrace[i] = 1
+        else:
+            eTrace[i] = lmbda*oldETrace[i]
+    return eTrace
 
 def getBestAction(tiles, theta):
     actions = [0] * 3
@@ -58,12 +84,6 @@ def getBestAction(tiles, theta):
             actions[1] += theta[i + 4*81]
             actions[2] += theta[i + 2*4*81]    
     return actions.index(max(actions))   
-
-#Should update theta values where we are
-#and also theta values corresponding to the eligibility trace
-def learn():
-    
-
 
 #Additional code here to write average performance data to files for plotting...
 #You will first need to add an array in which to collect the data
