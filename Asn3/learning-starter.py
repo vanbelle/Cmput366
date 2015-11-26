@@ -16,6 +16,8 @@ F = [-1]*numTilings
 runSum = 0.0
 for run in xrange(numRuns):
     theta = -0.01*rand(n) 
+    eligibilityTraceVector = [0]*n
+
     returnSum = 0.0
     for episodeNum in xrange(numEpisodes):
         G = 0
@@ -29,11 +31,16 @@ for run in xrange(numRuns):
 
             if explore:
                 action = random.randint(0,2)
-                reward, state = mountaincar.sample(state, action)
+                reward, newState = mountaincar.sample(state, action)
             else:
                 action = getBestAction(tiles, theta)
-                reward, state = mountaincar.sample(state, action)
+                reward, newState = mountaincar.sample(state, action)
             G += reward
+
+            learn() #Not sure what arguments learn will need
+
+            state = newState
+
 
         print "Episode: ", episodeNum, "Steps:", step, "Return: ", G
         returnSum = returnSum + G
@@ -50,7 +57,12 @@ def getBestAction(tiles, theta):
             actions[0] += theta[i]
             actions[1] += theta[i + 4*81]
             actions[2] += theta[i + 2*4*81]    
-    return actions.index(max(actions))        
+    return actions.index(max(actions))   
+
+#Should update theta values where we are
+#and also theta values corresponding to the eligibility trace
+def learn():
+    
 
 
 #Additional code here to write average performance data to files for plotting...
