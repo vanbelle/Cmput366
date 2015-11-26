@@ -19,6 +19,7 @@ for run in xrange(numRuns):
     returnSum = 0.0
     for episodeNum in xrange(numEpisodes):
         G = 0
+        delta = 0
         #your code goes here (20-30 lines, depending on modularity)
         state = mountaincar.init()
 
@@ -33,6 +34,8 @@ for run in xrange(numRuns):
             else:
                 action = getBestAction(tiles, theta)
                 reward, state = mountaincar.sample(state, action)
+            
+            delta = reward + updateDelta(tiles, theta, action, state)
             G += reward
 
         print "Episode: ", episodeNum, "Steps:", step, "Return: ", G
@@ -41,7 +44,15 @@ for run in xrange(numRuns):
     runSum += returnSum
 print "Overall performance: Average sum of return per run:", runSum/numRuns
 
-
+def updateDelta(tiles,theta, action, state):
+    nextTiles = tilecode(state[0], state[1],[-1]*numTilings)
+    if i in nextTiles:
+        delta += (1/3)*theta[i]
+        delta += (1/3)*theta[i + 4*81]
+        delta += (1/3)*theta[i + 8*81]
+    if i in tiles:
+        delta -= theta[i + action*4*81]
+    return delta
 
 def getBestAction(tiles, theta):
     actions = [0] * 3
