@@ -24,14 +24,17 @@ def getBestAction(tiles, theta):
             actions[2] += theta[i + 2*4*81]    
     return (actions.index(max(actions))) 
 
-def updateDelta(tiles, theta, action, state):
-    nextTiles = tilecode(state[0], state[1],[-1]*numTilings)
-    print "nextTiles: ",nextTiles
+def updateDelta(tiles, theta, action, newState):
+    nextTiles = tilecode(newState[0], newState[1],[-1]*numTilings)
     delta = 0
+    #for i in nextTiles:
+     #   delta += (1/3)*theta[i]
+      #  delta += (1/3)*theta[i + 4*81]
+       # delta += (1/3)*theta[i + 8*81]
+    nextAction = getBestAction(nextTiles, theta)
     for i in nextTiles:
-        delta += (1/3)*theta[i]
-        delta += (1/3)*theta[i + 4*81]
-        delta += (1/3)*theta[i + 8*81]
+        delta += theta[i + nextAction*4*81]
+
     for i in tiles:
         delta -= theta[i + action*4*81]
     return delta
@@ -44,7 +47,7 @@ def updateTheta(theta,delta, eTrace):
 
 def updateETrace(eTrace, tiles, action):
     oldETrace = eTrace
-    for i in range(numTilings):
+    for i in range(len(tiles)):
         if (i + action*4*81) in tiles:
             eTrace[i] = 1
         else:
@@ -77,12 +80,16 @@ for run in xrange(numRuns):
     for episodeNum in xrange(numEpisodes):
         G = 0
         delta = 0
+        maxState = -1000
         #your code goes here (20-30 lines, depending on modularity)
         state = mountaincar.init()
+        step = 0
         while state != None:
+            step += 1
+            if step % 10000 == 0:
+                print "Step: ", step
+                print "Max: ", maxState
             tiles = tilecode(state[0], state[1],[-1]*numTilings)
-            print("State: ", state, "tiles: ", tiles)
-
             explore = (random.random() <= epsilon)
 
             if explore:
@@ -93,11 +100,14 @@ for run in xrange(numRuns):
                 reward, newState = mountaincar.sample(state, action)
             G += reward
 
-            delta = reward + updateDelta(tiles, theta, action, state)
+            delta = reward + updateDelta(tiles, theta, action, newState)
             eTrace = updateETrace(eTrace, tiles, action)
             theta = updateTheta(theta, delta, eTrace)
 
             state = newState
+            maxState = max(maxState, state[0])
+            #if step %1000 == 0:
+            #    print "New Thetas: ", theta
         
         print "Episode: ", episodeNum, "Steps:", step, "Return: ", G
         returnSum = returnSum + G
