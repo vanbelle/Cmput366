@@ -109,10 +109,6 @@ for run in xrange(numRuns):
                 theta = updateTheta(theta, delta, eTrace)
                 maxState = max(maxState, newState[0])
             state = newState
-            
-            #if step %1000 == 0:
-            #    print "New Thetas: ", theta
-        
         print "Episode: ", episodeNum, "Steps:", step, "Return: ", G
         returnSum = returnSum + G
     print "Average return:", returnSum/numEpisodes
