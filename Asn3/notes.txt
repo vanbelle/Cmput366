@@ -5,3 +5,6 @@ So it must be learning a bit, but not enough.
 Maybe if Eps got set to 0 after a few episodes that would help. 
 
 Eps = 0 definitely can get stuck. 
+Eps = 0.2 definitely can get stuck.
+
+Tried Eps = 0.2, and then Eps = 0 After 20 Episodes, and even though it looked like it was going good, it got stuck as soon as the Eps dropped. 
