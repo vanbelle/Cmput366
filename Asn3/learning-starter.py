@@ -9,11 +9,9 @@ numEpisodes = 200
 alpha = 0.5/numTilings #was originally 005/numTilings
 gamma = 1
 lmbda = 0.9
-Epi = Emu = epsilon = 0.2
+Epi = Emu = epsilon = 0
 n = numTiles * 3
 F = [-1]*numTilings
-
-
 
 def getBestAction(tiles, theta):
     actions = [0] * 3
@@ -47,11 +45,10 @@ def updateTheta(theta,delta, eTrace):
 
 def updateETrace(eTrace, tiles, action):
     oldETrace = eTrace
-    for i in range(len(tiles)):
-        if (i + action*4*81) in tiles:
-            eTrace[i] = 1
-        else:
-            eTrace[i] = lmbda*oldETrace[i]
+    for i in range(len(eTrace)):
+        eTrace[i] = lmbda*oldETrace[i]     
+    for tile in tiles:
+            eTrace[tile + action*4*81] = 1
     return eTrace 
 
 #Additional code here to write average performance data to files for plotting...
@@ -69,18 +66,16 @@ def writeF():
     fout.close()
 
 
-
-
 runSum = 0.0
 for run in xrange(numRuns):
     theta = -0.01*rand(n) 
     eTrace = [0]*n
-
+#    print theta
     returnSum = 0.0
     for episodeNum in xrange(numEpisodes):
-        if episodeNum > 20:
-            epsilon = 0
-            print "Stop exploring"
+#        if episodeNum > 20:
+#            epsilon = 0
+#            print "Stop exploring"
         G = 0
         delta = 0
         maxState = -1000
