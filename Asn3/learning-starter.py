@@ -100,15 +100,14 @@ for run in xrange(numRuns):
                 reward, newState = mountaincar.sample(state, action)
             G += reward
 
-            delta = reward + updateDelta(tiles, theta, action, newState)
-            eTrace = updateETrace(eTrace, tiles, action)
-            theta = updateTheta(theta, delta, eTrace)
-
+            if newState != None:
+                delta = reward + updateDelta(tiles, theta, action, newState)
+                eTrace = updateETrace(eTrace, tiles, action)
+                theta = updateTheta(theta, delta, eTrace)
+                maxState = max(maxState, newState[0])
+            
             state = newState
-            maxState = max(maxState, state[0])
-            #if step %1000 == 0:
-            #    print "New Thetas: ", theta
-        
+            
         print "Episode: ", episodeNum, "Steps:", step, "Return: ", G
         returnSum = returnSum + G
     print "Average return:", returnSum/numEpisodes
