@@ -9,7 +9,7 @@ numEpisodes = 200
 alpha = 0.5/numTilings #was originally 005/numTilings
 gamma = 1
 lmbda = 0.9
-Epi = Emu = epsilon = 0
+Epi = Emu = epsilon = 0.2
 n = numTiles * 3
 F = [-1]*numTilings
 
@@ -78,6 +78,9 @@ for run in xrange(numRuns):
 
     returnSum = 0.0
     for episodeNum in xrange(numEpisodes):
+        if episodeNum > 20:
+            epsilon = 0
+            print "Stop exploring"
         G = 0
         delta = 0
         maxState = -1000
@@ -100,12 +103,13 @@ for run in xrange(numRuns):
                 reward, newState = mountaincar.sample(state, action)
             G += reward
 
-            delta = reward + updateDelta(tiles, theta, action, newState)
-            eTrace = updateETrace(eTrace, tiles, action)
-            theta = updateTheta(theta, delta, eTrace)
-
+            if newState != None:
+                delta = reward + updateDelta(tiles, theta, action, newState)
+                eTrace = updateETrace(eTrace, tiles, action)
+                theta = updateTheta(theta, delta, eTrace)
+                maxState = max(maxState, newState[0])
             state = newState
-            maxState = max(maxState, state[0])
+            
             #if step %1000 == 0:
             #    print "New Thetas: ", theta
         
