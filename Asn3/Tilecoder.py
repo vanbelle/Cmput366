@@ -28,10 +28,10 @@ coffset = 0.225 / numTilings
 #tile code takes 2 numbers (x,y) and translates them into the tile number 
 #in which the numbers land after each tiling.
 def tilecode(x,y,tileIndices):
-    #finding the tile corresponding to the vectors is repeated 8 times  
+    #finding the tile corresponding to the vectors is repeated 8 times
+    x += 1.2
+    y += 0.7  
     for i in range(0,numTilings):
-        x += 1.2
-        y += 0.7
         # row/column are determined by adding i*offset to the tiling index to repersent the 
         # matrix offset and then dividing by 0.6 (the width per tile) to determine the row or column
         column = (x + i*coffset) // 0.225
@@ -51,4 +51,4 @@ def printTileCoderIndices(x,y):
 #printTileCoderIndices(4.0,2.0)
 #printTileCoderIndices(5.99,5.99)
 #printTileCoderIndices(4.0,2.1)
-    
+#printTileCoderIndices(-1.2, -0.7)    
