@@ -1,3 +1,4 @@
+from __future__ import division
 import mountaincar
 from Tilecoder import numTilings, tilecode, numTiles
 from Tilecoder import numTiles as n
@@ -127,10 +128,7 @@ print "Overall performance: Average sum of return per run:", runSum/numRuns
 ## Average out learning curve
 for i in range(len(averageArray)):
     averageArray[i] = (averageArray[i][0]/50, averageArray[i][1]/50)
-
 writeAvgReturn(averageArray)
 ## ========================
 
 ##writeF()
-
-
