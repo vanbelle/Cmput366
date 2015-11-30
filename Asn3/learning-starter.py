@@ -102,7 +102,7 @@ for run in xrange(numRuns):
                 delta = reward + updateDelta(tiles, theta, action, newState)
                 eTrace = updateETrace(eTrace, tiles, action)
                 theta = updateTheta(theta, delta, eTrace)
-                maxState = max(maxState, newState[0])
+                #maxState = max(maxState, newState[0])
             state = newState
         print "Episode: ", episodeNum, "Steps:", step, "Return: ", G
         returnSum = returnSum + G
