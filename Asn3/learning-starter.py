@@ -51,6 +51,7 @@ def Qs(F):
     returnArray = []
     for i in F:
         returnArray.append(theta[i])
+    return returnArray
 
 #Additional code here to write average performance data to files for plotting...
 #You will first need to add an array in which to collect the data
@@ -82,7 +83,7 @@ for run in xrange(numRuns):
             step += 1
 
             tiles = tilecode(state[0], state[1],[-1]*numTilings)
-            explore = (random.random() <= epsilon)
+            explore = (random.random() < epsilon)
 
             if explore:
                 action = random.randint(0,2)
