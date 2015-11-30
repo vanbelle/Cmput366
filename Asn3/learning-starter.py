@@ -5,7 +5,7 @@ from pylab import *  #includes numpy
 import random
 
 numRuns = 1
-numEpisodes = 200
+numEpisodes = 1000
 alpha = 0.5/numTilings #was originally 005/numTilings
 gamma = 1
 lmbda = 0.9
@@ -25,10 +25,6 @@ def getBestAction(tiles, theta):
 def updateDelta(tiles, theta, action, newState):
     nextTiles = tilecode(newState[0], newState[1],[-1]*numTilings)
     delta = 0
-    #for i in nextTiles:
-     #   delta += (1/3)*theta[i]
-      #  delta += (1/3)*theta[i + 4*81]
-       # delta += (1/3)*theta[i + 8*81]
     nextAction = getBestAction(nextTiles, theta)
     for i in nextTiles:
         delta += theta[i + nextAction*4*81]
@@ -51,6 +47,11 @@ def updateETrace(eTrace, tiles, action):
             eTrace[tile + action*4*81] = 1
     return eTrace 
 
+def Qs(F):
+    returnArray = []
+    for i in F:
+        returnArray.append(theta[i])
+
 #Additional code here to write average performance data to files for plotting...
 #You will first need to add an array in which to collect the data
 def writeF():
@@ -69,25 +70,17 @@ def writeF():
 runSum = 0.0
 for run in xrange(numRuns):
     theta = -0.01*rand(n) 
-#    print theta
     returnSum = 0.0
-    eTrace = [0]*n
     for episodeNum in xrange(numEpisodes):
-#        if episodeNum > 20:
-#            epsilon = 0
-#            print "Stop exploring"
+        eTrace = [0]*n
         G = 0
         delta = 0
-        
-        #maxState = -1000
-        #your code goes here (20-30 lines, depending on modularity)
+
         state = mountaincar.init()
         step = 0
         while state != None:
             step += 1
-            #if step % 10000 == 0:
-             #   print "Step: ", step
-              #  print "Max: ", maxState
+
             tiles = tilecode(state[0], state[1],[-1]*numTilings)
             explore = (random.random() <= epsilon)
 
@@ -103,7 +96,6 @@ for run in xrange(numRuns):
                 delta = reward + updateDelta(tiles, theta, action, newState)
                 eTrace = updateETrace(eTrace, tiles, action)
                 theta = updateTheta(theta, delta, eTrace)
-                #maxState = max(maxState, newState[0])
             state = newState
         print "Episode: ", episodeNum, "Steps:", step, "Return: ", G
         returnSum = returnSum + G
@@ -111,6 +103,6 @@ for run in xrange(numRuns):
     runSum += returnSum
 print "Overall performance: Average sum of return per run:", runSum/numRuns
 
-
+writeF()
 
 
