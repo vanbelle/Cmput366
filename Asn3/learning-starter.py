@@ -69,7 +69,6 @@ def writeF():
 runSum = 0.0
 for run in xrange(numRuns):
     theta = -0.01*rand(n) 
-    eTrace = [0]*n
 #    print theta
     returnSum = 0.0
     for episodeNum in xrange(numEpisodes):
@@ -78,15 +77,16 @@ for run in xrange(numRuns):
 #            print "Stop exploring"
         G = 0
         delta = 0
-        maxState = -1000
+        eTrace = [0]*n
+        #maxState = -1000
         #your code goes here (20-30 lines, depending on modularity)
         state = mountaincar.init()
         step = 0
         while state != None:
             step += 1
-            if step % 10000 == 0:
-                print "Step: ", step
-                print "Max: ", maxState
+            #if step % 10000 == 0:
+             #   print "Step: ", step
+              #  print "Max: ", maxState
             tiles = tilecode(state[0], state[1],[-1]*numTilings)
             explore = (random.random() <= epsilon)
 
