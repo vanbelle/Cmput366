@@ -126,8 +126,7 @@ print "Overall performance: Average sum of return per run:", runSum/numRuns
 ## Learning Curve
 ## Average out learning curve
 for i in range(len(averageArray)):
-    averageArray[i][0] = averageArray[i][0]/50
-    averageArray[i][1] = averageArray[i][1]/50
+    averageArray[i] = (averageArray[i][0]/50, averageArray[i][1]/50)
 
 writeAvgReturn(averageArray)
 ## ========================
