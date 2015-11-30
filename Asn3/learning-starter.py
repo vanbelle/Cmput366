@@ -38,13 +38,13 @@ def updateDelta(tiles, theta, action, newState):
     return delta
 
 def updateTheta(theta,delta, eTrace):
-    oldTheta = theta
+    oldTheta = theta[:]
     for i in range(len(theta)):
         theta[i] = oldTheta[i] + (alpha*delta*eTrace[i])
     return theta
 
 def updateETrace(eTrace, tiles, action):
-    oldETrace = eTrace
+    oldETrace = eTrace[:]
     for i in range(len(eTrace)):
         eTrace[i] = lmbda*oldETrace[i]     
     for tile in tiles:
@@ -71,13 +71,14 @@ for run in xrange(numRuns):
     theta = -0.01*rand(n) 
 #    print theta
     returnSum = 0.0
+    eTrace = [0]*n
     for episodeNum in xrange(numEpisodes):
 #        if episodeNum > 20:
 #            epsilon = 0
 #            print "Stop exploring"
         G = 0
         delta = 0
-        eTrace = [0]*n
+        
         #maxState = -1000
         #your code goes here (20-30 lines, depending on modularity)
         state = mountaincar.init()
