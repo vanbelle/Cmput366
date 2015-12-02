@@ -29,7 +29,6 @@ def updateDelta(tiles, theta, action, newState):
     nextAction = getBestAction(nextTiles, theta)
     for i in nextTiles:
         delta += theta[i + nextAction*4*81]
-
     for i in tiles:
         delta -= theta[i + action*4*81]
     return delta
@@ -76,8 +75,8 @@ def writeAvgReturn(averageArray):
 runSum = 0.0
 
 ## Learning Curve
-numRuns = 50
-numEpisodes = 200
+numRuns = 1 
+numEpisodes = 1000
 averageArray = [(0,0)]*numEpisodes ## tuple ordered (return, steps)
 ## =======================
 
@@ -111,6 +110,14 @@ for run in xrange(numRuns):
                 delta = reward + updateDelta(tiles, theta, action, newState)
                 eTrace = updateETrace(eTrace, tiles, action)
                 theta = updateTheta(theta, delta, eTrace)
+            else:
+                Qa = 0
+                for i in tiles:
+                    Qa += theta[i + action*4*81]
+                delta = reward - Qa
+                updateETrace(eTrace, tiles, action)
+                theta = updateTheta(theta, delta, eTrace)
+
             state = newState
         print "Episode: ", episodeNum, "Steps:", step, "Return: ", G
         returnSum = returnSum + G
