@@ -75,8 +75,8 @@ def writeAvgReturn(averageArray):
 runSum = 0.0
 
 ## Learning Curve
-numRuns = 1 
-numEpisodes = 1000
+numRuns = 50
+numEpisodes = 200
 averageArray = [(0,0)]*numEpisodes ## tuple ordered (return, steps)
 ## =======================
 
@@ -121,7 +121,6 @@ for run in xrange(numRuns):
             state = newState
         print "Episode: ", episodeNum, "Steps:", step, "Return: ", G
         returnSum = returnSum + G
-        #stepSum = stepSum + step
 
         ## Learning Curve
         averageArray[episodeNum] = (averageArray[episodeNum][0] + G, averageArray[episodeNum][1] + step)
@@ -134,8 +133,8 @@ print "Overall performance: Average sum of return per run:", runSum/numRuns
 ## Learning Curve
 ## Average out learning curve
 for i in range(len(averageArray)):
-    averageArray[i] = (averageArray[i][0]/50, averageArray[i][1]/50)
+    averageArray[i] = (averageArray[i][0]/numRuns, averageArray[i][1]/numRuns)
 writeAvgReturn(averageArray)
 ## ========================
 
-##writeF()
+#writeF()
